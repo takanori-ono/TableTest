@@ -1,0 +1,113 @@
+﻿@model IEnumerable<TableTest.table_test>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div type="button" style="margin-top: 50px;" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+Modal のテスト
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            hogehoge
+
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-tabs" style="margin-top: 50px;" >
+    <li role="presentation" ><a href="#mishonin" aria-controls="mishonin"
+                                               role="tab" data-toggle="tab">未承認</a></li>
+    <li role="presentation" class="active"><a href="#shoninzumi" aria-controls="mishonin"
+                                               role="tab" data-toggle="tab">承認済み</a></li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane " id="mishonin">
+        <table class="table " style="margin-top: 2px;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.flag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dt)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                if (item.flag == 0)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.flag)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.no }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.no }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.no })
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        <div type="button" style="margin-top: 0px;" class="btn btn-default" >
+            洗濯を承認する
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane active" id="shoninzumi">
+        <table class="table" style="margin-top: 2px;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.flag)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dt)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                if (item.flag == 1)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.flag)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dt)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.no }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.no }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.no })
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+    </div>
+</div>

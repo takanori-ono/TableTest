@@ -1,0 +1,131 @@
+﻿@model TestTableList
+@using TableTest.Models
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div type="button" style="margin-top: 50px;" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Modal のテスト
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            hogehoge
+
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Index2", "table_test", new { name = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <ul class="nav nav-tabs" style="margin-top: 50px;">
+        <li role="presentation">
+            <a href="#mishonin" aria-controls="mishonin"
+               role="tab" data-toggle="tab">未承認</a>
+        </li>
+        <li role="presentation" class="active">
+            <a href="#shoninzumi" aria-controls="mishonin"
+               role="tab" data-toggle="tab">承認済み</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane " id="mishonin">
+            <table class="table " style="margin-top: 2px;">
+                <tr>
+                    <th>
+                        Taisho
+                    </th>
+                    <th>
+                        Flag
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th></th>
+                </tr>
+                @{
+                    int cnt = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    if (item.Flag == 0)
+                    {
+                        <tr>
+                            <td>
+                                @Html.Hidden("No", item.No)
+                                <input type="checkbox" value="@item.No" id="No[@cnt]" name="No[@cnt]" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Flag)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UpDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.No }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.No }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.No })
+                            </td>
+                        </tr>
+                        cnt++;
+                    }
+                }
+            </table>
+            <input type="submit" value="洗濯を承認する" name="sel_shonin" class=" btn btn-default"/>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="shoninzumi">
+            <table class="table" style="margin-top: 2px;">
+                <tr>
+                    <th>
+                        Flag
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    if (item.Flag == 1)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Flag)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UpDate)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.No }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.No }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.No })
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+    </div>
+
+}
